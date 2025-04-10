@@ -1,16 +1,23 @@
 package br.ETS.almoxarifado;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.EntityManager;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        Material caneta = new Material(new MaterialDTO("Caneta", "Só canetas", 600));
+        Categoria escritorio = new Categoria("ESCRITÓRIO");
+        Material caneta;
+        caneta = new Material(new MaterialDTO("Caneta", "Só canetas", 600, escritorio));
 
         // Gerencia as entidades do banco de dados, o EntityManagerFactory é um classe
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("almoxarifado");
+        EntityManager entityManager = JPAUtil.getEntityManager();
+
+        CategoriaDAO categoriaDAO = new CategoriaDAO(entityManager);
+        MaterialDAO materialDAO = new MaterialDAO(entityManager);
+
+        entityManager.getTransaction().begin();
+        categoriaDAO.cadastrar(escritorio);
+        materialDAO.cadastrar(caneta);
+        entityManager.getTransaction().commit();
+        entityManager.close();
     }
 }

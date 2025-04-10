@@ -1,10 +1,10 @@
 package br.ETS.almoxarifado;
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity   //Vai identificar o que é uma entidade, vai ser uma tabela no banco de dados
 @Table (name = "tbmateriaisindiretos")   //Cria a tabela pra mim de forma automática
 public class Material {
-
     @Id     //Vai indicar que meu ID é uma chave-primaria
     @GeneratedValue (strategy = GenerationType.IDENTITY)    //É meu auto incremento
     private int id;
@@ -13,11 +13,17 @@ public class Material {
     private String fornecedor;
     private int quantidade;
 
+    private LocalDate dataCadastro = LocalDate.now();
+
+    @ManyToOne
+    private Categoria categoria;
+
     // Meu construtor
     public Material(MaterialDTO materialDTO) {
         this.nome = materialDTO.nome();
         this.fornecedor = materialDTO.fornecedor();
         this.quantidade = materialDTO.quantidade();
+        this.categoria = materialDTO.categoria();
     }
 
     public int getId() {
