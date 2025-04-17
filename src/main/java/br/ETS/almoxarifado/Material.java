@@ -15,6 +15,9 @@ public class Material {
 
     private LocalDate dataCadastro = LocalDate.now();
 
+    public Material() {
+    }
+
     @ManyToOne
     private Categoria categoria;
 
@@ -56,5 +59,17 @@ public class Material {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+
+    @Override
+    public String toString() {
+        return "Material{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", fornecedor='" + fornecedor + '\'' +
+                ", quantidade=" + quantidade +
+                ", dataCadastro=" + dataCadastro +
+                ", categoria=" + categoria +
+                '}';
     }
 }

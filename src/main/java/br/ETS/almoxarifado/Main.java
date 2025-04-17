@@ -4,20 +4,23 @@ import javax.persistence.EntityManager;
 
 public class Main {
     public static void main(String[] args) {
-        Categoria escritorio = new Categoria("ESCRITÓRIO");
-        Material caneta;
-        caneta = new Material(new MaterialDTO("Caneta", "Só canetas", 600, escritorio));
-
-        // Gerencia as entidades do banco de dados, o EntityManagerFactory é um classe
         EntityManager entityManager = JPAUtil.getEntityManager();
-
-        CategoriaDAO categoriaDAO = new CategoriaDAO(entityManager);
         MaterialDAO materialDAO = new MaterialDAO(entityManager);
+        CategoriaDAO categoriaDAO = new CategoriaDAO(entityManager);
 
-        entityManager.getTransaction().begin();
-        categoriaDAO.cadastrar(escritorio);
-        materialDAO.cadastrar(caneta);
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        Categoria escritorio = new Categoria("ELÉTRICA");
+        Material material = new Material(new MaterialDTO("Nível", "Só canetas", 5, escritorio));
+
+//        categoriaDAO.cadastrar(escritorio);
+//        materialDAO.cadastrar(material);
+
+//        var categoriaAtualizado = categoriaDAO.buscaPorID(2);
+//        categoriaAtualizado.setNome("TÉCNICO EM INFORMAÇÃO");
+//        categoriaDAO.atualizar(categoriaAtualizado);
+
+//        var categoriaASerRemovida = categoriaDAO.buscaPorID(9);
+//        categoriaDAO.remover(categoriaASerRemovida);
+
+        System.out.println(categoriaDAO.buscaPorID(9));
     }
 }
